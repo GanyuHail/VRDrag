@@ -59,7 +59,7 @@ function init() {
     group = new THREE.Group();
     scene.add(group);
 
-    const paintGeometry = new THREE.BoxGeometry(50, 50, 1);
+    const paintGeometry = new THREE.BoxGeometry(1, 1, 0.05);
     paintGeometry.antialias = true;
     const paintTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/nb/main/src/weOpMin.jpg');
     const paintMaterial = new THREE.MeshBasicMaterial({ map: paintTexture });
