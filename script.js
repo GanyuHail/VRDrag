@@ -1,8 +1,8 @@
 
 import * as THREE from './three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { VRButton } from 'three/examples/jsm//webxr/VRButton.js';
-import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory.js';
+import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
+import { VRButton } from './three/examples/jsm//webxr/VRButton.js';
+import { XRControllerModelFactory } from './three/examples/jsm/webxr/XRControllerModelFactory.js';
 
 let container;
 let camera, scene, renderer;
