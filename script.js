@@ -1,5 +1,3 @@
-type = "module"
-
 import * as THREE from 'three';
 import { OrbitControls } from 'https://unpkg.com/three@0.146.0/examples/jsm/controls/OrbitControls.js';
 import { VRButton } from 'https://unpkg.com/three@0.146.0/examples/jsm/webxr/VRButton.js';
