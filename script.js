@@ -35,7 +35,7 @@ function init() {
 
     const floorGeometry = new THREE.PlaneGeometry(4, 4);
     const floorMaterial = new THREE.MeshStandardMaterial({
-        color: 0xeeeeee,
+        color: 0xf7c4c8,
         roughness: 1.0,
         metalness: 0.0
     });
@@ -63,15 +63,17 @@ function init() {
     paintGeometry.antialias = true;
     const paintTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/nb/main/src/weOpMin.jpg');
     const paintMaterial = new THREE.MeshBasicMaterial({ map: paintTexture });
-    paintMaterial.metalness = 0.5;
-    paintMaterial.roughness = 1;
+    paintMaterial.metalness = 0;
+    paintMaterial.roughness = 0.5;
     const paintMesh = new THREE.Mesh(paintGeometry, paintMaterial);
     scene.add(paintMesh);
     paintGeometry.userData = { URL: "https://github.com/GanyuHail/nb/blob/main/src/weOpMin.jpg" };
 
-    paintMesh.position.x = 1;
-    paintMesh.position.y = 1;
+    paintMesh.position.x = 0;
+    paintMesh.position.y = 1.5;
     paintMesh.position.z = 1;
+
+    group.add(paintMesh);
 
     const geometries = [
         new THREE.BoxGeometry(0.2, 0.2, 0.2),
@@ -159,6 +161,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// obj selector
+
 function onSelectStart(event) {
     const controller = event.target;
     const intersections = getIntersections(controller);
@@ -213,7 +217,6 @@ function cleanIntersected() {
         object.material.emissive.r = 0;
     }
 }
-
 
 function animate() {
     renderer.setAnimationLoop(render);
