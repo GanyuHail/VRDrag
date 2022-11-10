@@ -24,7 +24,7 @@ function init() {
     document.body.appendChild(container);
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x808080);
+    scene.background = new THREE.Color(0xffcccc);
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 10);
     camera.position.set(0, 1.6, 3);
@@ -69,9 +69,9 @@ function init() {
     scene.add(paintMesh);
     paintGeometry.userData = { URL: "https://github.com/GanyuHail/nb/blob/main/src/weOpMin.jpg" };
 
-    paintMesh.position.x = Math.random() * 4 - 2;
-    paintMesh.position.y = Math.random() * 2;
-    paintMesh.position.z = Math.random() * 4 - 2;
+    paintMesh.position.x = 1;
+    paintMesh.position.y = 1;
+    paintMesh.position.z = 1;
 
     const geometries = [
         new THREE.BoxGeometry(0.2, 0.2, 0.2),
