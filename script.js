@@ -59,6 +59,17 @@ function init() {
     group = new THREE.Group();
     scene.add(group);
 
+    const paintGeometry = new THREE.BoxGeometry(50, 50, 1);
+    paintGeometry.antialias = true;
+    const paintTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/nb/main/src/weOpMin.jpg');
+    const paintMaterial = new THREE.MeshBasicMaterial({ map: paintTexture });
+    paintMaterial.metalness = 0.5;
+    paintMaterial.roughness = 1;
+    const paintMesh = new THREE.Mesh(paintGeometry, paintMaterial);
+    scene.add(paintMesh);
+
+    paintGeometry.userData = { URL: "https://github.com/GanyuHail/nb/blob/main/src/weOpMin.jpg" };
+
     const geometries = [
         new THREE.BoxGeometry(0.2, 0.2, 0.2),
         new THREE.ConeGeometry(0.2, 0.2, 64),
@@ -92,10 +103,7 @@ function init() {
         object.receiveShadow = true;
 
         group.add(object);
-
     }
-
-    //
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -129,10 +137,7 @@ function init() {
     controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
     scene.add(controllerGrip2);
 
-    //
-
     const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, - 1)]);
-
     const line = new THREE.Line(geometry);
     line.name = 'line';
     line.scale.z = 5;
@@ -141,66 +146,43 @@ function init() {
     controller2.add(line.clone());
 
     raycaster = new THREE.Raycaster();
-
-    //
-
     window.addEventListener('resize', onWindowResize);
 
 }
 
 function onWindowResize() {
-
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
 
 function onSelectStart(event) {
-
     const controller = event.target;
-
     const intersections = getIntersections(controller);
 
     if (intersections.length > 0) {
-
         const intersection = intersections[0];
-
         const object = intersection.object;
         object.material.emissive.b = 1;
         controller.attach(object);
-
         controller.userData.selected = object;
-
     }
-
 }
 
 function onSelectEnd(event) {
-
     const controller = event.target;
-
     if (controller.userData.selected !== undefined) {
-
         const object = controller.userData.selected;
         object.material.emissive.b = 0;
         group.attach(object);
-
         controller.userData.selected = undefined;
-
     }
-
-
 }
 
 function getIntersections(controller) {
-
     tempMatrix.identity().extractRotation(controller.matrixWorld);
-
     raycaster.ray.origin.setFromMatrixPosition(controller.matrixWorld);
     raycaster.ray.direction.set(0, 0, - 1).applyMatrix4(tempMatrix);
-
     return raycaster.intersectObjects(group.children, false);
 
 }
@@ -208,53 +190,35 @@ function getIntersections(controller) {
 function intersectObjects(controller) {
 
     if (controller.userData.selected !== undefined) return;
-
     const line = controller.getObjectByName('line');
     const intersections = getIntersections(controller);
 
     if (intersections.length > 0) {
-
         const intersection = intersections[0];
-
         const object = intersection.object;
         object.material.emissive.r = 1;
         intersected.push(object);
-
         line.scale.z = intersection.distance;
-
     } else {
-
         line.scale.z = 5;
-
     }
-
 }
 
 function cleanIntersected() {
-
     while (intersected.length) {
-
         const object = intersected.pop();
         object.material.emissive.r = 0;
-
     }
-
 }
 
 
 function animate() {
-
     renderer.setAnimationLoop(render);
-
 }
 
 function render() {
-
     cleanIntersected();
-
     intersectObjects(controller1);
     intersectObjects(controller2);
-
     renderer.render(scene, camera);
-
 }
