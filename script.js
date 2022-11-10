@@ -59,7 +59,7 @@ function init() {
     group = new THREE.Group();
     scene.add(group);
 
-    const paintGeometry = new THREE.BoxGeometry(1, 1, 0.05);
+    const paintGeometry = new THREE.BoxGeometry(1, 1, 0.025);
     paintGeometry.antialias = true;
     const paintTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/nb/main/src/weOpMin.jpg');
     const paintMaterial = new THREE.MeshBasicMaterial({ map: paintTexture });
@@ -67,8 +67,11 @@ function init() {
     paintMaterial.roughness = 1;
     const paintMesh = new THREE.Mesh(paintGeometry, paintMaterial);
     scene.add(paintMesh);
-
     paintGeometry.userData = { URL: "https://github.com/GanyuHail/nb/blob/main/src/weOpMin.jpg" };
+
+    paintMesh.position.x = Math.random() * 4 - 2;
+    paintMesh.position.y = Math.random() * 2;
+    paintMesh.position.z = Math.random() * 4 - 2;
 
     const geometries = [
         new THREE.BoxGeometry(0.2, 0.2, 0.2),
@@ -82,7 +85,7 @@ function init() {
 
         const geometry = geometries[Math.floor(Math.random() * geometries.length)];
         const material = new THREE.MeshStandardMaterial({
-            color: Math.random() * 0xffffff,
+            color: Math.random() * 0xF7A8B8,
             roughness: 0.7,
             metalness: 0.0
         });
