@@ -59,7 +59,7 @@ function init() {
     group = new THREE.Group();
     scene.add(group);
 
-    const paintGeometry = new THREE.BoxGeometry(1, 1, 0.025);
+    const paintGeometry = new THREE.BoxGeometry(1, 1, 0.0125);
     paintGeometry.antialias = true;
     const paintTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/GanyuHail/nb/main/src/weOpMin.jpg');
     const paintMaterial = new THREE.MeshBasicMaterial({ map: paintTexture });
@@ -73,12 +73,12 @@ function init() {
     paintMesh.position.y = 1.5;
     paintMesh.position.z = 1;
 
-    group.add(paintMesh);
+    //group.add(paintMesh);
 
     const geometries = [
         new THREE.BoxGeometry(0.2, 0.2, 0.2),
-        new THREE.ConeGeometry(0.2, 0.2, 64),
-        new THREE.CylinderGeometry(0.2, 0.2, 0.2, 64),
+        //new THREE.ConeGeometry(0.2, 0.2, 64),
+        //new THREE.CylinderGeometry(0.2, 0.2, 0.2, 64),
         new THREE.IcosahedronGeometry(0.2, 8),
         new THREE.TorusGeometry(0.2, 0.04, 64, 32)
     ];
@@ -152,7 +152,6 @@ function init() {
 
     raycaster = new THREE.Raycaster();
     window.addEventListener('resize', onWindowResize);
-
 }
 
 function onWindowResize() {
