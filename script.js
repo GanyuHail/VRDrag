@@ -66,14 +66,17 @@ function init() {
     paintMaterial.metalness = 0;
     paintMaterial.roughness = 0.5;
     const paintMesh = new THREE.Mesh(paintGeometry, paintMaterial);
-    scene.add(paintMesh);
+    //scene.add(paintMesh);
     paintGeometry.userData = { URL: "https://github.com/GanyuHail/nb/blob/main/src/weOpMin.jpg" };
 
     paintMesh.position.x = 0;
-    paintMesh.position.y = 1.5;
-    paintMesh.position.z = -1;
+    paintMesh.position.y = 1.25;
+    paintMesh.position.z = -1.1;
 
-    //group.add(paintMesh);
+    paintMesh.castShadow = true;
+    paintMesh.receiveShadow = true;
+
+    group.add(paintMesh);
 
     const geometries = [
         //new THREE.BoxGeometry(0.2, 0.2, 0.2),
@@ -102,7 +105,7 @@ function init() {
         object.rotation.y = Math.random() * 2 * Math.PI;
         object.rotation.z = Math.random() * 2 * Math.PI;
 
-        object.scale.setScalar(Math.random() + 0.25);
+        object.scale.setScalar(Math.random() + 0.1);
 
         object.castShadow = true;
         object.receiveShadow = true;
