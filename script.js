@@ -149,6 +149,7 @@ function init() {
     const line = new THREE.Line(geometry);
     line.name = 'line';
     line.scale.z = 5;
+    line.color = 0xf7c4c8;
 
     controller1.add(line.clone());
     controller2.add(line.clone());
@@ -171,10 +172,15 @@ function onSelectStart(event) {
 
     if (intersections.length > 0) {
         const intersection = intersections[0];
-        const object = intersection.group;
-        group.material.emissive.b = 1;
+        const object = intersection.object; 
+        object.material.emissive.b = 1;
         controller.attach(object);
         controller.userData.selected = object;
+
+        const paintMesh = intersection.paintMesh; 
+        paintMesh.material.emissive.b = 1;
+        controller.attach(paintMesh);
+        controller.userData.selected = paintMesh;
     }
 }
 
@@ -185,6 +191,11 @@ function onSelectEnd(event) {
         object.material.emissive.b = 0;
         group.attach(object);
         controller.userData.selected = undefined;
+
+        const paintMesh = controller.userData.selected;
+        paintMesh.material.emissive.b = 0;
+        group.attach(paintMesh);
+        controller.userData.selected = undefined;
     }
 }
 
@@ -193,7 +204,6 @@ function getIntersections(controller) {
     raycaster.ray.origin.setFromMatrixPosition(controller.matrixWorld);
     raycaster.ray.direction.set(0, 0, - 1).applyMatrix4(tempMatrix);
     return raycaster.intersectObjects(group.children, false);
-
 }
 
 function intersectObjects(controller) {
@@ -204,10 +214,14 @@ function intersectObjects(controller) {
 
     if (intersections.length > 0) {
         const intersection = intersections[0];
-        const object = intersection.group;
+        const object = intersection.object;
         object.material.emissive.r = 1;
         intersected.push(object);
         line.scale.z = intersection.distance;
+
+        const paintMesh = intersection.paintMesh;
+        paintMesh.material.emissive.r = 1;
+        intersected.push(paintMesh);
     } else {
         line.scale.z = 5;
     }
@@ -217,6 +231,9 @@ function cleanIntersected() {
     while (intersected.length) {
         const object = intersected.pop();
         object.material.emissive.r = 0;
+
+        const paintMesh = intersected.pop();
+        paintMesh.material.emissive.r = 0;
     }
 }
 
