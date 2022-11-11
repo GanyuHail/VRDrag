@@ -87,7 +87,7 @@ function init() {
 
         const geometry = geometries[Math.floor(Math.random() * geometries.length)];
         const material = new THREE.MeshStandardMaterial({
-            color: Math.random() * 0xF7A8B8,
+            color: Math.random() * 0xF7A8B8 * 0xF7A8B8,
             roughness: 0.7,
             metalness: 0.0
         });
@@ -102,7 +102,7 @@ function init() {
         object.rotation.y = Math.random() * 2 * Math.PI;
         object.rotation.z = Math.random() * 2 * Math.PI;
 
-        object.scale.setScalar(Math.random() + 0.5);
+        object.scale.setScalar(Math.random() + 0.25);
 
         object.castShadow = true;
         object.receiveShadow = true;
