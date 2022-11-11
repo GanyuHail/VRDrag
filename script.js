@@ -171,7 +171,7 @@ function onSelectStart(event) {
 
     if (intersections.length > 0) {
         const intersection = intersections[0];
-        const object = intersection.object;
+        const object = intersection.object && intersection.paintMesh;
         object.material.emissive.b = 1;
         controller.attach(object);
         controller.userData.selected = object;
