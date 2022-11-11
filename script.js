@@ -71,16 +71,16 @@ function init() {
 
     paintMesh.position.x = 0;
     paintMesh.position.y = 1.5;
-    paintMesh.position.z = 1;
+    paintMesh.position.z = -1;
 
     //group.add(paintMesh);
 
     const geometries = [
-        new THREE.BoxGeometry(0.2, 0.2, 0.2),
+        //new THREE.BoxGeometry(0.2, 0.2, 0.2),
         //new THREE.ConeGeometry(0.2, 0.2, 64),
         //new THREE.CylinderGeometry(0.2, 0.2, 0.2, 64),
         new THREE.IcosahedronGeometry(0.2, 8),
-        new THREE.TorusGeometry(0.2, 0.04, 64, 32)
+        //new THREE.TorusGeometry(0.2, 0.04, 64, 32)
     ];
 
     for (let i = 0; i < 50; i++) {
