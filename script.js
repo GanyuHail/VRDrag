@@ -47,7 +47,7 @@ function init() {
     scene.add(new THREE.HemisphereLight(0x808080, 0x606060));
 
     const light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(0, 6, 0);
+    light.position.set(3, 6, 0);
     light.castShadow = true;
     light.shadow.camera.top = 2;
     light.shadow.camera.bottom = - 2;
@@ -171,8 +171,8 @@ function onSelectStart(event) {
 
     if (intersections.length > 0) {
         const intersection = intersections[0];
-        const object = intersection.object && intersection.paintMesh;
-        object.material.emissive.b = 1;
+        const object = intersection.group;
+        group.material.emissive.b = 1;
         controller.attach(object);
         controller.userData.selected = object;
     }
@@ -204,7 +204,7 @@ function intersectObjects(controller) {
 
     if (intersections.length > 0) {
         const intersection = intersections[0];
-        const object = intersection.object;
+        const object = intersection.group;
         object.material.emissive.r = 1;
         intersected.push(object);
         line.scale.z = intersection.distance;
