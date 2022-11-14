@@ -193,10 +193,6 @@ function onSelectEnd(event) {
         object.material.emissive.b = 0;
         group.attach(object);
 
-        const paintMesh = controller.userData.selected;
-        paintMesh.material.emissive.b = 0;
-        group.attach(paintMesh);
-
         controller.userData.selected = undefined;
     }
 }
@@ -225,7 +221,11 @@ function intersectObjects(controller) {
         }
 
         else {
+
         const paintMesh = intersection.paintMesh;
+        if (paintMesh == undefined) {
+            return
+        }
         paintMesh.material.emissive.r = 1;
         intersected.push(paintMesh);
         }
