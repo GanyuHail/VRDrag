@@ -173,15 +173,15 @@ function onSelectStart(event) {
     if (intersections.length > 0) {
         const intersection = intersections[0];
 
-        const object = intersection.object; 
+        const object = intersection.object;
         object.material.emissive.b = 1;
         controller.attach(object);
         controller.userData.selected = object;
 
-        // const paintMesh = intersection.paintMesh; 
-        // paintMesh.material.emissive.b = 1;
-        // controller.attach(paintMesh);
-        // controller.userData.selected = paintMesh;
+        const paintMesh = intersection.paintMesh;
+        paintMesh.material.emissive.b = 1;
+        controller.attach(paintMesh);
+        controller.userData.selected = paintMesh;
     }
 }
 
@@ -193,11 +193,11 @@ function onSelectEnd(event) {
         object.material.emissive.b = 0;
         group.attach(object);
 
-        // const paintMesh = controller.userData.selected;
-        // paintMesh.material.emissive.b = 0;
-        // group.attach(paintMesh);
+        const paintMesh = controller.userData.selected;
+        paintMesh.material.emissive.b = 0;
+        group.attach(paintMesh);
 
-        controller.userData.selected = undefined;       
+        controller.userData.selected = undefined;
     }
 }
 
@@ -218,12 +218,17 @@ function intersectObjects(controller) {
         const intersection = intersections[0];
 
         const object = intersection.object;
-        object.material.emissive.r = 1;
-        intersected.push(object);
-       
-        // const paintMesh = intersection.paintMesh;
-        // paintMesh.material.emissive.r = 1;
-        // intersected.push(paintMesh);
+
+        if (object.material.emissive != undefined) {
+            object.material.emissive.r = 1;
+            intersected.push(object)
+        }
+
+        else {
+        const paintMesh = intersection.paintMesh;
+        paintMesh.material.emissive.r = 1;
+        intersected.push(paintMesh);
+        }
 
         line.scale.z = intersection.distance;
     } else {
@@ -237,8 +242,8 @@ function cleanIntersected() {
         const object = intersected.pop();
         object.material.emissive.r = 0;
 
-        // const paintMesh = intersected.pop();
-        // paintMesh.material.emissive.r = 0;
+        const paintMesh = intersected.pop();
+        paintMesh.material.emissive.r = 0;
     }
 }
 
