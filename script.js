@@ -244,6 +244,10 @@ function cleanIntersected() {
 
         const paintMesh = intersected.pop();
         paintMesh.material.emissive.r = 0;
+        if (paintMesh == undefined) {
+            return
+        }
+
     }
 }
 
