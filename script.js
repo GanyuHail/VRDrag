@@ -56,7 +56,7 @@ function init() {
     light.shadow.mapSize.set(4096, 4096);
     scene.add(light);
 
-    group = new THREE.Group();
+    group = new THREE.Object3D();
     scene.add(group);
 
     const paintGeometry = new THREE.BoxGeometry(1, 1, 0.0125);
